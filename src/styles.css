@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+p {
+  margin: 10px;
+}
+
+a,
+a:visited,
+a:hover {
+  color: #007bff;
+  font-size: 12px;
+}
+
+a:hover {
+  color: #125699;
+  font-size: 12px;
+  transition: .5s
+}
+.nav-link:hover{
+  background-color: #007bff;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 15px;
+  transition: .5 ease-in;
+}
+.personalInfo mat-icon, .personalInfo fa-icon{
+  margin: .25rem .8rem 0 0
+}
+mat-form-field{
+  width: 100%;
+}
