@@ -1,0 +1,21 @@
+<div *ngIf='load == "basics"' class="row justify-content-around">
+  <div *ngFor="let att of skills.basics | objToArray" class="col-auto text-center">
+    <fa-icon [icon]="att.logo" size='3x'></fa-icon><br>
+    <span>{{att.name}}</span>
+  </div>
+</div>
+
+<div *ngIf='load == "advanced"' class="row justify-content-around">
+  <div *ngFor="let att of skills.framesworksAndLibraries | objToArray" class="col-auto text-center">
+    <fa-icon [icon]="att.logo" size='3x'></fa-icon> <br>
+    <span>{{att.name}}</span>
+  </div>
+</div>
+
+<div *ngIf='load == "next"' class="row justify-content-around">
+  <div *ngFor="let att of skills.nextInterests | objToArray" class="col-auto text-center">
+    <fa-icon [icon]="att.logo" size='3x'></fa-icon> <br>
+    <span>{{att.name}}</span>
+  </div>
+</div>
+

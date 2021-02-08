@@ -49,3 +49,6 @@ a:hover {
 mat-form-field{
   width: 100%;
 }
+.copyleft{
+  rotate: 180deg;
+}

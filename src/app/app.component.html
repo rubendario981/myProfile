@@ -1,26 +1,16 @@
-<mat-toolbar class="d-flex justify-content-between sticky-top">
-  <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" class="d-none">
-    <mat-icon>menu</mat-icon>
-  </button>
-
-  <nav class="nav" *ngFor='let info of informacion'>
-    <a class="nav-link py-0" href="#">{{info}}</a>
-  </nav>
-
-  <button class="btn btn-outline-primary">Descargar curriculum</button>
-</mat-toolbar>
+<app-header [elements]='informacion' class="sticky-top"></app-header>
 
 <mat-divider></mat-divider>
 
-<h3 class="text-center text-white py-2 bg-primary">Presentacion personal Ruben Dario Guzman Gonzalez</h3>
+<h3 class="text-center text-white py-2 bg-primary">Presentacion personal {{fullName}}</h3>
 <div class="container d-flex">
   <button mat-flat-button color='accent' *ngIf='!sideNav.opened' (click)="sideNav.toggle()">
     <mat-icon>keyboard_arrow_right</mat-icon>
   </button>
   <mat-drawer-container class="row pr-2" autosize>
     <mat-drawer opened='true' #sideNav class="col-3 bg-dark" mode="side">      
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" class="img-thumbnail d-block mx-auto rounded-circle" alt="Photo of a Shiba Inu">
-      <p class="text-center text-white">{{nombre}}</p>
+      <img mat-card-image src={{aboutMe.image}} class="img-thumbnail d-block mx-auto rounded-circle" alt="Photo profile">
+      <p class="text-center text-white">{{aboutMe.fullName}}</p>
       <button mat-raised-button color='accent' (click)="sideNav.toggle()"
         class="d-block mx-auto">Ocultame</button>
     </mat-drawer>
@@ -29,7 +19,7 @@
       <mat-expansion-panel [expanded]='true' (opened)="aboutMe.viewMore = true" (closed)="aboutMe.viewMore = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <h4 class="font-weight-bold">{{informacion[0]}}</h4>
+            <h4 class="font-weight-bold">{{informacion.general.title}}</h4>
           </mat-panel-title>
           <mat-panel-description class="justify-content-end">
             <span>Ver {{aboutMe.viewMore ? 'menos': 'mas'}}...</span>
@@ -43,7 +33,7 @@
       <mat-expansion-panel [expanded]="true" (opened)="personalData.viewMore = true" (closed)="personalData.viewMore = false" class="personalInfo">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <h4 class="font-weight-bold">{{informacion[1]}}</h4>
+            <h4 class="font-weight-bold">{{informacion.data.title}}</h4>
           </mat-panel-title>
           <mat-panel-description class="justify-content-end">
             <span>Ver {{personalData.viewMore ? 'menos': 'mas'}}...</span>
@@ -66,22 +56,17 @@
         </div>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]='true' (opened)="skills.viewMore = true" (closed)="skills.viewMore = false">
+      <mat-expansion-panel [expanded]='true' (opened)="informacion.languages.viewMore = true" (closed)="informacion.languages.viewMore = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <h4 class="font-weight-bold">{{informacion[2]}}</h4>
+            <h4 class="font-weight-bold">{{informacion.languages.title}}</h4>
           </mat-panel-title>
           <mat-panel-description class="justify-content-end">
-            <span>Ver {{skills.viewMore ? 'menos': 'mas'}}...</span>
+            <span>Ver {{informacion.languages.viewMore ? 'menos': 'mas'}}...</span>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <p>Lenguajes y plataformas basicas para el desarrollo de aplicaciones web</p>
-        <div class="row justify-content-around">
-          <div *ngFor="let att of skills.basics | objToArray" class="col-auto text-center">
-            <fa-icon [icon]="att.logo" size='3x'></fa-icon><br>
-            <span>{{att.name}}</span>
-          </div>
-        </div>
+        <app-skills [loadSkills]="'basics'"></app-skills>
 
       </mat-expansion-panel>
 
@@ -92,18 +77,23 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <p>Relacion de las principales herramientas para el desarrollo e implementacion de paginas y aplicativos web mas utilizados </p>
-        <div class="row justify-content-around">
-          <div *ngFor="let att of skills.framesworksAndLibraries | objToArray" class="col-auto text-center">
-            <fa-icon [icon]="att.logo" size='3x'></fa-icon> <br>
-            <span>{{att.name}}</span>
-          </div>
-        </div>
+        <app-skills [loadSkills]='"advanced"'></app-skills>
       </mat-expansion-panel>
-      
-      <mat-expansion-panel [expanded]='true'>
+
+      <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <h3 class="font-weight-bold">{{informacion[3]}}</h3>
+            <h3 class="font-weight-bold">Intereses de otras tecnologias</h3>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>Otras plataformas y tecnologias de informacion en el ambito de la programacion para aprender en un futuro </p>
+        <app-skills [loadSkills]='"next"'></app-skills>
+      </mat-expansion-panel>
+      
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3 class="font-weight-bold">{{informacion.social.title}}</h3>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="row justify-content-around">
@@ -121,49 +111,13 @@
       <mat-expansion-panel [expanded]='true'>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <h3 class="font-weight-bold">{{informacion[4]}}</h3>
+            <h3 class="font-weight-bold">{{informacion.contact.title}}</h3>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <form [formGroup]='formContact' (ngSubmit)='contactMe()' class="row justify-content-between">
-            <div class="col-6">
-              <mat-form-field appearance="standard">
-                <mat-label>Nombres</mat-label>
-                <input matInput placeholder="Ingresa tus nombres" formControlName='fullName'>
-                <mat-icon matSuffix>account_circle</mat-icon>
-              </mat-form-field>
-            </div>
-            <div class="col-6">
-              <mat-form-field appearance="standard">
-                <mat-label>Correo electronico</mat-label>
-                <input matInput placeholder="Ingresa tu email" formControlName='email'>
-                <mat-icon matSuffix>email</mat-icon>
-              </mat-form-field>
-            </div>
-            <div class="col-6">
-              <mat-form-field appearance="standard">
-                <mat-label>Numero telefonico</mat-label>
-                <input matInput placeholder="Ingresa tu numero telefonico" formControlName='email'>
-                <mat-icon matSuffix>phone</mat-icon>
-              </mat-form-field>
-            </div>
-            <div class="col-6">
-              <mat-form-field appearance="standard">
-                <mat-label>Elige una opcion</mat-label>
-                <mat-select formControlName='matters'>
-                  <mat-option *ngFor='let v of matters' [value]='v'>{{v}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-12">
-              <mat-form-field appearance="standard">
-                <mat-label>Deja tus comentarios</mat-label>
-                <textarea matInput formControlName='comments'></textarea>
-              </mat-form-field>
-            </div>
-            <button mat-raised-button color='primary' type="submit">Enviar</button>
-          </form>
+        <app-formContact></app-formContact>
       </mat-expansion-panel>
     </mat-accordion>
     
   </mat-drawer-container>
 </div>
+<app-footer></app-footer>

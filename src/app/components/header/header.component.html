@@ -1,0 +1,11 @@
+<mat-toolbar class="d-flex justify-content-between">
+  <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" class="d-none">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <nav class="nav" *ngFor='let info of informacion | objToArray'>
+    <a class="nav-link py-0" href="#">{{info.title}}</a>
+  </nav>
+
+  <button class="btn btn-outline-primary">Descargar curriculum</button>
+</mat-toolbar>
