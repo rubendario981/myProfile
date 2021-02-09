@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { faUniversity } from '@fortawesome/free-solid-svg-icons';
+import { BreakpointObserver } from '@angular/cdk/layout'; 
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,7 @@ export class AppComponent {
   fullName =  'Ruben Dario Guzman Gonzalez'
   aboutMe ={
     fullName: this.fullName,
-    image: 'https://material.angular.io/assets/img/examples/shiba2.jpg',
+    image: '../assets/img/imagenRuben.jpeg',
     title: 'Ingeniero de sistemas de la universidad nacional abierta de y a distancia UNAD de colombia',
     description: 's simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged',
     conclusion: 'text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy ',
@@ -50,16 +51,18 @@ export class AppComponent {
     university: 'Universidad Nacional Abierta y a Distancia - UNAD', 
     viewMore: true 
   }
-  constructor(){
+  mode = ''
+
+  constructor(private viewPort: BreakpointObserver){
   }
 
-  ngAfterContentInit(){
+  viewPortSize(): string{
+    let mode = ''
+    const svp = this.viewPort.isMatched('(max-width: 576px)')
+    return svp ? mode = 'over': mode = 'side'
   }
-  
+
   ngOnInit(){
-  }
-
-  
-  ngDoCheck(){
+    this.viewPortSize()
   }
 }

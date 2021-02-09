@@ -1,11 +1,17 @@
 <mat-toolbar class="d-flex justify-content-between">
-  <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon" class="d-none">
+  <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" aria-label="Example icon button with a menu icon" class="d-md-none">
     <mat-icon>menu</mat-icon>
   </button>
+  <mat-menu #menu>
+    <button mat-menu-item *ngFor='let info of informacion | objToArray'>
+      <mat-icon>navigate_next</mat-icon>
+      <a class="stretched-link" href="#{{info.title}}">{{info.title}}</a>
+    </button>
+  </mat-menu>
 
-  <nav class="nav" *ngFor='let info of informacion | objToArray'>
-    <a class="nav-link py-0" href="#">{{info.title}}</a>
+  <nav class="nav d-none d-md-flex" *ngFor='let info of informacion | objToArray'>
+    <a class="nav-link py-0 px-2 px-lg-4" href="#{{info.title}}">{{info.title}}</a>
   </nav>
 
-  <button class="btn btn-outline-primary">Descargar curriculum</button>
+  <a class="btn btn-outline-primary " href="src/assets/file/hv.txt" download>Descargar curriculum</a>
 </mat-toolbar>

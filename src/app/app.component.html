@@ -3,26 +3,26 @@
 <mat-divider></mat-divider>
 
 <h3 class="text-center text-white py-2 bg-primary">Presentacion personal {{fullName}}</h3>
-<div class="container d-flex">
-  <button mat-flat-button color='accent' *ngIf='!sideNav.opened' (click)="sideNav.toggle()">
+<div class="container d-flex pl-0">
+  <button mat-flat-button color='accent' *ngIf='!sideNav.opened' (click)="sideNav.toggle()" class="mb-3">
     <mat-icon>keyboard_arrow_right</mat-icon>
   </button>
-  <mat-drawer-container class="row pr-2" autosize>
-    <mat-drawer opened='true' #sideNav class="col-3 bg-dark" mode="side">      
+  <mat-drawer-container class="row pr-1" autosize>
+    <mat-drawer opened='true' #sideNav class="col-5 col-md-3 bg-dark" mode={{viewPortSize()}} >
       <img mat-card-image src={{aboutMe.image}} class="img-thumbnail d-block mx-auto rounded-circle" alt="Photo profile">
       <p class="text-center text-white">{{aboutMe.fullName}}</p>
       <button mat-raised-button color='accent' (click)="sideNav.toggle()"
-        class="d-block mx-auto">Ocultame</button>
+      class="d-block mx-auto">Ocultame</button>
     </mat-drawer>
 
-    <mat-accordion class="col-9" multi>
-      <mat-expansion-panel [expanded]='true' (opened)="aboutMe.viewMore = true" (closed)="aboutMe.viewMore = false">
+    <mat-accordion class="col-8 col-md-9" multi>
+      <mat-expansion-panel id="{{informacion.general.title}}" [expanded]='true' (opened)="aboutMe.viewMore = true" (closed)="aboutMe.viewMore = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <h4 class="font-weight-bold">{{informacion.general.title}}</h4>
           </mat-panel-title>
           <mat-panel-description class="justify-content-end">
-            <span>Ver {{aboutMe.viewMore ? 'menos': 'mas'}}...</span>
+            <span class="pt-3">Ver {{aboutMe.viewMore ? 'menos': 'mas'}}...</span>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <p>{{aboutMe.title}}</p>
@@ -30,13 +30,13 @@
         <p>{{aboutMe.conclusion}}</p>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="true" (opened)="personalData.viewMore = true" (closed)="personalData.viewMore = false" class="personalInfo">
+      <mat-expansion-panel id="{{informacion.data.title}}" [expanded]="true" (opened)="personalData.viewMore = true" (closed)="personalData.viewMore = false" class="personalInfo">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <h4 class="font-weight-bold">{{informacion.data.title}}</h4>
           </mat-panel-title>
           <mat-panel-description class="justify-content-end">
-            <span>Ver {{personalData.viewMore ? 'menos': 'mas'}}...</span>
+            <span class="pt-3">Ver {{personalData.viewMore ? 'menos': 'mas'}}...</span>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div class="d-flex inline-flex">
@@ -56,13 +56,13 @@
         </div>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]='true' (opened)="informacion.languages.viewMore = true" (closed)="informacion.languages.viewMore = false">
+      <mat-expansion-panel id="{{informacion.languages.title}}" [expanded]='true' (opened)="informacion.languages.viewMore = true" (closed)="informacion.languages.viewMore = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <h4 class="font-weight-bold">{{informacion.languages.title}}</h4>
           </mat-panel-title>
           <mat-panel-description class="justify-content-end">
-            <span>Ver {{informacion.languages.viewMore ? 'menos': 'mas'}}...</span>
+            <span class="pt-3">Ver {{informacion.languages.viewMore ? 'menos': 'mas'}}...</span>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <p>Lenguajes y plataformas basicas para el desarrollo de aplicaciones web</p>
@@ -90,7 +90,7 @@
         <app-skills [loadSkills]='"next"'></app-skills>
       </mat-expansion-panel>
       
-      <mat-expansion-panel>
+      <mat-expansion-panel id="{{informacion.social.title}}">
         <mat-expansion-panel-header>
           <mat-panel-title>
             <h3 class="font-weight-bold">{{informacion.social.title}}</h3>
@@ -98,17 +98,21 @@
         </mat-expansion-panel-header>
         <div class="row justify-content-around">
           <div class="col-auto text-center">
-            <fa-icon [icon]="iconLinkedIn" size='3x'></fa-icon> <br>
-            <span>LinkedIn</span>
+            <a class="stretch-link" href="https://www.linkedin.com/in/rdguzmango/" target="_blank">
+              <fa-icon [icon]="iconLinkedIn" size='3x'></fa-icon> <br>
+              <span>LinkedIn</span>
+            </a>
           </div>
           <div class="col-auto">
-            <fa-icon [icon]="iconGitHub" size='3x'></fa-icon> <br>
-            <span>GitHub</span>            
+            <a class="stretch-link" href="https://github.com/rubendario981" target="_blank">
+              <fa-icon [icon]="iconGitHub" size='3x'></fa-icon> <br>
+              <span>GitHub</span>            
+            </a>
           </div>
         </div>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]='true'>
+      <mat-expansion-panel id="{{informacion.contact.title}}" [expanded]='true'>
         <mat-expansion-panel-header>
           <mat-panel-title>
             <h3 class="font-weight-bold">{{informacion.contact.title}}</h3>
@@ -120,4 +124,5 @@
     
   </mat-drawer-container>
 </div>
+<mat-divider></mat-divider>
 <app-footer></app-footer>
