@@ -26,12 +26,12 @@ p {
 
 a,
 a:visited,
-a:hover {
+nav > a:hover {
   color: #007bff;
   font-size: 12px;
 }
 
-a:hover {
+nav > a:hover {
   color: #125699;
   font-size: 12px;
   transition: .5s

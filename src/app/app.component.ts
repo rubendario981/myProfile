@@ -9,6 +9,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = 'Curriculum Ruben Guzman'
   informacion={
     general:{
       title: 'Informacion general',
@@ -38,9 +39,7 @@ export class AppComponent {
   aboutMe ={
     fullName: this.fullName,
     image: '../assets/img/imagenRuben.jpeg',
-    title: 'Ingeniero de sistemas de la universidad nacional abierta de y a distancia UNAD de colombia',
-    description: 's simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged',
-    conclusion: 'text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy ',
+    title: 'Ingeniero de sistemas de la universidad nacional abierta de y a distancia UNAD de Colombia, anteriormente tecnologo en sistemas de la universidad Santiago de Cali USC',    
     viewMore: true
   }
   personalData ={

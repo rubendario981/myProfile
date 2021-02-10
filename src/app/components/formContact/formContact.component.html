@@ -4,7 +4,7 @@
       <mat-label>Nombres</mat-label>
       <input matInput placeholder="Ingresa tus nombres" formControlName='fullName' (keypress)='onlyLetters($event)'>
       <mat-icon matSuffix>account_circle</mat-icon>
-      <mat-error *ngIf="validField('fullName')">{{getErrors('fullName')}}</mat-error>
+      <mat-error *ngIf="invalidField('fullName')">{{getErrors('fullName')}}</mat-error>
     </mat-form-field>
   </div>
   <div class="col-12 col-md-6">
@@ -12,7 +12,7 @@
       <mat-label>Correo electronico</mat-label>
       <input matInput placeholder="Ingresa tu email" formControlName='email'>
       <mat-icon matSuffix>email</mat-icon>
-      <mat-error *ngIf="validField('email')">{{getErrors('email')}}</mat-error>
+      <mat-error *ngIf="invalidField('email')">{{getErrors('email')}}</mat-error>
     </mat-form-field>
   </div>
   <div class="col-12 col-md-6">
@@ -20,7 +20,7 @@
       <mat-label>Numero telefonico</mat-label>
       <input matInput placeholder="Ingresa tu numero telefonico" formControlName='phone' (keypress)='onlyNumbers($event)'>
       <mat-icon matSuffix>phone</mat-icon>
-      <mat-error *ngIf="validField('phone')">{{getErrors('phone')}}</mat-error>
+      <mat-error *ngIf="invalidField('phone')">{{getErrors('phone')}}</mat-error>
     </mat-form-field>
   </div>
   <div class="col-12 col-md-6">
@@ -29,18 +29,19 @@
       <mat-select formControlName='matters'>
         <mat-option *ngFor='let v of matters' [value]='v'>{{v}}</mat-option>
       </mat-select>      
-      <mat-error *ngIf="validField('matters')">{{getErrors('matters')}}</mat-error>
+      <mat-error *ngIf="invalidField('matters')">{{getErrors('matters')}}</mat-error>
     </mat-form-field>
   </div>
   <div class="col-12 col-md-12">
     <mat-form-field appearance="standard">
       <mat-label>Deja tus comentarios</mat-label>
       <textarea matInput formControlName='comments'></textarea>
-      <mat-error *ngIf="validField('comments')">{{getErrors('comments')}}</mat-error>
+      <mat-error *ngIf="invalidField('comments')">{{getErrors('comments')}}</mat-error>
     </mat-form-field>
   </div>
   <div class="d-flex w-100 justify-content-around">
-    <button mat-raised-button color='primary' type="submit">Enviar</button>
+    <button mat-raised-button color='primary' type="submit" [disabled]='sendingForm'>Enviar</button>
     <button mat-raised-button color='warn' type="reset">Borrar Formulario</button>
+    <button mat-raised-button color='accent' type="button" (click)='initFormContact()'>{{sendingForm}} Formulario</button>
   </div>
 </form>

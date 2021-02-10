@@ -9,7 +9,7 @@
   </button>
   <mat-drawer-container class="row pr-1" autosize>
     <mat-drawer opened='true' #sideNav class="col-5 col-md-3 bg-dark" mode={{viewPortSize()}} >
-      <img mat-card-image src={{aboutMe.image}} class="img-thumbnail d-block mx-auto rounded-circle" alt="Photo profile">
+      <img mat-card-image src={{aboutMe.image}} class="img-thumbnail d-block mx-auto rounded-circle w-75" alt="Photo profile">
       <p class="text-center text-white">{{aboutMe.fullName}}</p>
       <button mat-raised-button color='accent' (click)="sideNav.toggle()"
       class="d-block mx-auto">Ocultame</button>
@@ -26,8 +26,8 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <p>{{aboutMe.title}}</p>
-        <p>{{aboutMe.description}}</p>
-        <p>{{aboutMe.conclusion}}</p>
+        <p>Soy un apasionado en temas de la tecnología y diferentes avances que se presentan día a día de los diferentes dispositivos con los que se interactúan, en el ámbito profesional me gusta mucho trabajar <strong>el área del diseño y programación web</strong>, de tal forma que los trabajos realizados los he desarrollado principalmente con el framework de <strong>Angular</strong> para el diseño y la interacción de los usuario, las librerías de <strong>Bootstrap y Angular Material</strong> para complementar el diseño y los estilos de los elementos que se implementan en las páginas, del lado del servidor <strong>NodeJs</strong> para dar respuesta a los requerimientos del usuario, brindando solución a las necesidades establecidas.</p>
+        <p>En este mundo de la tecnología no se puede considerar que todo esta terminado, hay una competencia voraz entre los diferentes actores de este mercado tan variable día a día y siempre existe la posibilidad de asumir nuevos retos y riesgos para el desarrollo profesional gracias a los avances tecnológicos que al final son herramientas que se van a utilizar para solucionar diferentes necesidades que se presentan a lo largo del camino</p>
       </mat-expansion-panel>
 
       <mat-expansion-panel id="{{informacion.data.title}}" [expanded]="true" (opened)="personalData.viewMore = true" (closed)="personalData.viewMore = false" class="personalInfo">

@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../../environments/environment.prod';
+import swal from 'sweetalert'
 
 @Component({
   selector: 'app-formContact',
@@ -9,9 +12,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class FormContactComponent implements OnInit {
   formContact: any;
+  sendingForm = false;
   matters = ['Asesoria', 'Encargar trabajo', 'Oferta de empleo', 'Otro asunto']
 
-  constructor(private msgAdvice: MatSnackBar) { }
+  constructor(private msgAdvice: MatSnackBar, private http: HttpClient) { }
 
   ngOnInit() {
     this.initFormContact()
@@ -28,12 +32,31 @@ export class FormContactComponent implements OnInit {
   }
   
   contactMe(){
-    console.log(this.formContact.get('comments'))
-    // console.log(this.formContact.get('fullName').invalid && this.formContact.get('fullName').touched)
+    if(this.formContact.valid){
+      this.formContact.disable();
+      this.sendingForm = true
+      let formData = new FormData();
+      formData.append("Nombres y apellidos", this.formContact.get("fullName").value);
+      formData.append("Correo", this.formContact.get("email").value);
+      formData.append("Telefono", this.formContact.get("phone").value);
+      formData.append("Asunto", this.formContact.get("matters").value);
+      formData.append("Comentarios", this.formContact.get("comments").value);
+      this.http.post(environment.URL, formData).subscribe(res=>{
+        if(Object.values(res)[0] == 'success'){          
+          swal("Formulario enviado con exito", "Gracias por ponerse en contacto", "success", {timer: 3000})
+          this.sendingForm = false
+        }
+      }, err=> {
+        swal("Algo ha fallado", "Por favor recargue la pagina e intentelo de nuevo" + err, "error")
+        this.sendingForm = false
+      })
+      this.formContact.enable()
+      this.formContact.reset()
+    }
   }
   
-  validField(fieldName: string): boolean{
-    return this.formContact.get(fieldName).touched || this.formContact.get(fieldName).invalid
+  invalidField(fieldName: string): boolean{ 
+    return (this.formContact.get(fieldName).touched || this.formContact.get(fieldName).dirty) && !this.formContact.get(fieldName).valid
   }
 
   getErrors(fieldName: string): string[]{
