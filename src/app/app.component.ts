@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { faUniversity } from '@fortawesome/free-solid-svg-icons';
-import { BreakpointObserver } from '@angular/cdk/layout'; 
+import { MediaMatcher } from '@angular/cdk/layout'; 
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Curriculum Ruben Guzman'
+  title = 'Curriculum Ruben Guzman';  
   informacion={
     general:{
       title: 'Informacion general',
@@ -50,18 +50,12 @@ export class AppComponent {
     university: 'Universidad Nacional Abierta y a Distancia - UNAD', 
     viewMore: true 
   }
-  mode = ''
+  mode: MediaQueryList
+  private _mobileQueryListen: () => void;
 
-  constructor(private viewPort: BreakpointObserver){
-  }
-
-  viewPortSize(): string{
-    let mode = ''
-    const svp = this.viewPort.isMatched('(max-width: 576px)')
-    return svp ? mode = 'over': mode = 'side'
-  }
-
-  ngOnInit(){
-    this.viewPortSize()
+  constructor(private viewPort: MediaMatcher, detectChanges: ChangeDetectorRef){
+    this.mode = viewPort.matchMedia('(max-width: 576px)')
+    this._mobileQueryListen = ()=> detectChanges.detectChanges()
+    this.mode.addEventListener('change', this._mobileQueryListen);
   }
 }

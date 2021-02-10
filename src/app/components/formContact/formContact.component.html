@@ -18,7 +18,7 @@
   <div class="col-12 col-md-6">
     <mat-form-field appearance="standard">
       <mat-label>Numero telefonico</mat-label>
-      <input matInput placeholder="Ingresa tu numero telefonico" formControlName='phone' (keypress)='onlyNumbers($event)'>
+      <input matInput type="tel" placeholder="Ingresa tu numero telefonico" formControlName='phone' (keypress)='onlyNumbers($event)'>
       <mat-icon matSuffix>phone</mat-icon>
       <mat-error *ngIf="invalidField('phone')">{{getErrors('phone')}}</mat-error>
     </mat-form-field>
@@ -42,6 +42,5 @@
   <div class="d-flex w-100 justify-content-around">
     <button mat-raised-button color='primary' type="submit" [disabled]='sendingForm'>Enviar</button>
     <button mat-raised-button color='warn' type="reset">Borrar Formulario</button>
-    <button mat-raised-button color='accent' type="button" (click)='initFormContact()'>{{sendingForm}} Formulario</button>
   </div>
 </form>
